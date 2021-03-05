@@ -1,4 +1,4 @@
-= Zoom Auto Updater
+= Zoom Auto Updater for Fedora
 
 Install/uninstall script for systemd timer/service that checks daily whether there is a newer version of zoom available on the website than the one that is installed locally.
 If there is a newer version, it downloads the linux .deb package from the zoom website and installs it.

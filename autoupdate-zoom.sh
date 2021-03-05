@@ -39,14 +39,14 @@ ZOOM_VERSION_AVAILABLE_MAJOR=\$(echo \$ZOOM_VERSION_AVAILABLE | sed -e 's/\([^\.
 echo "major" zoom version available for download: \$ZOOM_VERSION_AVAILABLE_MAJOR
 ZOOM_VERSION_AVAILABLE_MINOR=\$(echo \$ZOOM_VERSION_AVAILABLE | sed -e 's/[^\(]\+(\(.*\)).*/\1/')
 echo "minor" zoom version available for download: \$ZOOM_VERSION_AVAILABLE_MINOR
-ZOOM_VERSION_INSTALLED=\$(apt-cache policy zoom | grep "Installed:" | sed -e 's/.*Installed: \(.*\)/\1/')
+ZOOM_VERSION_INSTALLED=\$(rpm -qi zoom | grep --color=never "Version" | sed -e 's/.*Version\s*\: \(.*\)/\1/')
 echo zoom version installed: \$ZOOM_VERSION_INSTALLED
 if [[ "\$ZOOM_VERSION_INSTALLED" != *"\$ZOOM_VERSION_AVAILABLE_MINOR"* ]] || [[ "\$ZOOM_VERSION_INSTALLED" != *"\$ZOOM_VERSION_AVAILABLE_MAJOR"* ]]; then
    echo downloading new version...
-   wget --quiet https://zoom.us/client/latest/zoom_amd64.deb -P /tmp
+   wget --quiet https://zoom.us/client/latest/zoom_x86_64.rpm -P /tmp
    export DEBIAN_FRONTEND=noninteractive
-   apt-get install -y /tmp/zoom_amd64.deb
-   rm /tmp/zoom_amd64.deb
+   dnf localinstall -y /tmp/zoom_x86_64.rpm
+   rm /tmp/zoom_x86_64.rpm
 else
    echo already at latest version
 fi
